@@ -24,7 +24,4 @@
     "noFallthroughCasesInSwitch": true
   },
   "include": ["src", ".react-router/types/**/*"],
-  "scripts": {
-    "typecheck": "react-router typegen && tsc"
-  }
 }
