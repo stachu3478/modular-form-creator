@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
 import ResourcesPage from './route'
 import { createMemoryRouter, RouterProvider } from 'react-router'
-import { exampleResources } from '../ResourcesTable/ResourcesTable.mocks'
+import { exampleResources } from '../components/ResourcesTable/ResourcesTable.mocks'
 import { expect, fn } from 'storybook/test'
 
 function createPaginated<T>(items: T[], pageSize = 10, page = 1) {

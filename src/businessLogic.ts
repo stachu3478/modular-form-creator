@@ -1,8 +1,14 @@
-import type { Resource } from './routes/ResourcesTable/ResourcesTable.types'
+import type { Resource } from './routes/components/ResourcesTable/ResourcesTable.types'
+
+const isBasicInfoCompleted = (resource: Resource) =>
+  Object.values(resource.basicInfo).every((v) => v)
+
+const isProjectDetailsCompleted = (resource: Resource) =>
+  Object.values(resource.projectDetails).every((v) => v)
 
 export const useBusinessLogic = () => ({
-  isBasicInfoCompleted: (resource: Resource) =>
-    Object.values(resource.basicInfo).every((v) => v),
-  isProjectDetailsCompleted: (resource: Resource) =>
-    Object.values(resource.projectDetails).every((v) => v),
+  isBasicInfoCompleted,
+  isProjectDetailsCompleted,
+  isFullyCompleted: (resource: Resource) =>
+    isBasicInfoCompleted(resource) && isProjectDetailsCompleted(resource),
 })

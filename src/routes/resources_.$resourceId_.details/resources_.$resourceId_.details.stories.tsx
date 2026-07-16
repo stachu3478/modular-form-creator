@@ -12,7 +12,7 @@ import { expect, fn } from 'storybook/test'
 const resourceLoader = fn(() => completeResource)
 
 const meta: Meta<typeof ResourcePage> = {
-  title: 'Page/Resource',
+  title: 'Page/Resource Details',
   component: ResourcePage,
   decorators: [
     (Story) => (
@@ -48,9 +48,7 @@ export const PageWithIncompleteBasicInfo: Story = {
     resourceLoader.mockImplementation(() => resourceWithIncompleteBasicInfo)
   },
   play: async ({ canvas }) => {
-    canvas.getByRole('button', {
-      name: 'Edit Basic Info Incomplete',
-    })
+    expect(canvas.getByTestId('main')).toHaveTextContent('Basic info')
     expect(canvas.getByTestId('main')).not.toHaveTextContent('Project details')
   },
 }
@@ -60,12 +58,7 @@ export const PageWithIncompleteProjectDetails: Story = {
     resourceLoader.mockImplementation(() => resourceWithIncompleteProjectDetails)
   },
   play: async ({ canvas }) => {
-    canvas.getByRole('button', {
-      name: 'Edit Project Details Incomplete',
-    })
-
-    const provisionButton = canvas.getByRole('button', { name: 'Provision' })
-    expect(provisionButton).toBeDisabled()
+    expect(canvas.getByTestId('main')).toHaveTextContent('Project detailsIncomplete')
   },
 }
 
@@ -74,12 +67,7 @@ export const PageWithFilledDraftResource: Story = {
     resourceLoader.mockImplementation(() => filledDraftResource)
   },
   play: async ({ canvas }) => {
-    canvas.getByRole('button', {
-      name: 'Edit Project Details Completed',
-    })
-
-    const provisionButton = canvas.getByRole('button', { name: 'Provision' })
-    expect(provisionButton).not.toBeDisabled()
+    expect(canvas.getByTestId('main')).toHaveTextContent('Project detailsCompleted')
   },
 }
 
@@ -89,8 +77,5 @@ export const PageWithFilledCompletedResource: Story = {
   },
   play: async ({ canvas }) => {
     expect(canvas.getByTestId('main')).toHaveTextContent('provisioning state')
-
-    const provisionButton = canvas.queryByRole('button', { name: 'Provision' })
-    expect(provisionButton, 'Provision button should not be present').toBeNull()
   },
 }

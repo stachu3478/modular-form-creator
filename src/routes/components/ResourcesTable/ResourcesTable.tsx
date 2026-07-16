@@ -1,6 +1,6 @@
 import { Form, Link } from 'react-router'
 import type { Resource } from './ResourcesTable.types'
-import { Button } from '../../design-system'
+import { Button } from '../../../design-system'
 import styled from 'styled-components'
 
 const TableCell = styled.td`

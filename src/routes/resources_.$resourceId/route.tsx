@@ -1,10 +1,12 @@
 import { Form, Link, useLoaderData } from 'react-router'
-import type { Resource } from '../ResourcesTable/ResourcesTable.types'
+import type { Resource } from '../components/ResourcesTable/ResourcesTable.types'
 import { fetchFromApi } from '../loader'
-import { Badge, Button, Card } from '../../design-system'
+import { Button, Card } from '../../design-system'
 import { useBusinessLogic } from '../../businessLogic'
 import { styled } from 'styled-components'
 import type { Route } from './+types/route'
+import ProgressBadge from '../components/ProgressBadge'
+import ResourceStatusBadge from '../components/ResourceStatusBadge'
 
 export async function clientLoader({ params }: Route.LoaderArgs): Promise<Resource> {
   const res = await fetchFromApi(`/resources/${params.resourceId}`)
@@ -31,46 +33,28 @@ export default function ResourcePage() {
       <Card>
         <h1>{resource.name}</h1>
 
-        {resource.status === 'draft' ? (
-          <Badge variant="warning">
-            This resource is in draft. Fill in the remaining information to be able to
-            provision the resource.
-          </Badge>
-        ) : (
-          <Badge variant="info">
-            This resource is in provisioning state. You can still modify the subsequent
-            modules and save changes.
-          </Badge>
-        )}
+        <ResourceStatusBadge resource={resource} />
 
-        <h2>Basic info</h2>
-        <h3>Resource name</h3>
-        <p>{resource.basicInfo.resourceName}</p>
-        <h3>Owner</h3>
-        <p>{resource.basicInfo.owner}</p>
-        <h3>E-mail</h3>
-        <p>{resource.basicInfo.email}</p>
-        <h3>Priority</h3>
-        <p>{resource.basicInfo.priority}</p>
-        <h3>Description</h3>
-        <p>{resource.basicInfo.description}</p>
+        <Link to="./details">
+          <Button variant="secondary" fullWidth>
+            Show summary
+          </Button>
+        </Link>
+
+        <Link to="./basic-info">
+          <Button variant="secondary" fullWidth>
+            Edit Basic Info
+            <ProgressBadge completed={basicInfoCompleted} />
+          </Button>
+        </Link>
 
         {basicInfoCompleted && (
-          <>
-            <h2>Project details</h2>
-            <h3>Project name</h3>
-            <p>{resource.projectDetails.projectName}</p>
-            <h3>Category</h3>
-            <p>{resource.projectDetails.category}</p>
-            <h3>Bugdet</h3>
-            <p>{resource.projectDetails.budget}</p>
-            <h3>Options</h3>
-            <ul>
-              {resource.projectDetails.options.map((option) => (
-                <li key={option}>{option}</li>
-              ))}
-            </ul>
-          </>
+          <Link to="./project-details">
+            <Button variant="secondary" fullWidth>
+              Edit Project Details
+              <ProgressBadge completed={projectDetailsCompleted} />
+            </Button>
+          </Link>
         )}
 
         {resource.status === 'draft' && (

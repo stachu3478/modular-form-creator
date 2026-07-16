@@ -1,8 +1,11 @@
 import { useLoaderData } from 'react-router'
 import { Input } from '../../design-system'
 import { NewResourceForm, SubmitButton } from './resources.styles'
-import { ResourcesTable } from '../ResourcesTable/ResourcesTable'
-import { type Paginated, type Resource } from '../ResourcesTable/ResourcesTable.types'
+import { ResourcesTable } from '../components/ResourcesTable/ResourcesTable'
+import {
+  type Paginated,
+  type Resource,
+} from '../components/ResourcesTable/ResourcesTable.types'
 import { fetchFromApi } from '../loader'
 import type { Route } from './+types/route'
 

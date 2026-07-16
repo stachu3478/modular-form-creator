@@ -6,6 +6,6 @@ export async function clientAction({ params }: Route.ActionArgs) {
   const response = await fetchFromApi(`/resources/${params.resourceId}`, {
     method: 'DELETE',
   })
-  redirect('/resourcess')
+  redirect('/resources')
   return response
 }
