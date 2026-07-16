@@ -1,9 +1,5 @@
-import { Link } from "react-router";
+import { Form, Link } from "react-router";
 import type { Resource } from './ResourcesTable.types';
-
-export function HydrateFallback() {
-  return <div>Loading... Please wait</div>;
-}
 
 export function ResourcesTable({ resources }: { resources: Resource[] }) {
   if (!resources.length) {
@@ -35,7 +31,7 @@ export function ResourcesTable({ resources }: { resources: Resource[] }) {
               <td>{resource.basicInfo.priority}</td>
               <td>
                 <Link to={`${resource.resourceId}/details`}>Details</Link>
-                <Link to={`${resource.resourceId}/delete`}>Delete</Link>
+                <Form action={`/resources/${resource.resourceId}/delete`} method="POST"><button type="submit">Delete</button></Form>
               </td>
             </tr>
           ))}

@@ -1,7 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
 import { ResourcesTable } from './ResourcesTable'
-import { GlobalStyles, theme } from '../../../design-system'
-import { ThemeProvider } from 'styled-components'
 import { createMemoryRouter, RouterProvider } from 'react-router'
 import { exampleResources } from './ResourcesTable.mocks'
 
@@ -10,10 +8,7 @@ const meta: Meta<typeof ResourcesTable> = {
   component: ResourcesTable,
   decorators: [
     (Story) => (
-      <ThemeProvider theme={theme}>
-        <GlobalStyles />
-        <RouterProvider router={createMemoryRouter([{ path: '/', element: <Story /> }], { initialEntries: ['/'] })} />
-      </ThemeProvider>
+      <RouterProvider router={createMemoryRouter([{ path: '/', element: <Story /> }], { initialEntries: ['/'] })} />
     ),
   ],
   args: {

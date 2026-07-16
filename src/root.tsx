@@ -1,36 +1,45 @@
 import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
 import { ThemeProvider } from 'styled-components'
-import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import { GlobalStyles } from './design-system/theme/GlobalStyles'
 import { theme } from './design-system/theme/theme'
 import App from './App'
-import ResourcesRouteView from './routes/resources/index'
-import HomeRoute from './routes/home'
 import type { Route } from './+types/root'
-import { isRouteErrorResponse } from 'react-router'
-import { clientAction } from './routes/resources/index.action'
-import { clientLoader } from './routes/resources/index.loader'
+import { isRouteErrorResponse, Links, Meta, Scripts, ScrollRestoration } from 'react-router'
 
-const router = createBrowserRouter([
-  {
-    path: '/',
-    element: <App />,
-    children: [
-      { index: true, element: <HomeRoute /> },
-      { path: 'resources', element: <ResourcesRouteView />, loader: clientLoader, action: clientAction },
-    ],
-  },
-])
+export function Layout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return (
+    <html lang="en">
+      <head>
+        <meta charSet="UTF-8" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>modular-form-creator</title>
+        <Meta />
+        <Links />
+      </head>
+      <body>
+        {children}
+        <ScrollRestoration />
+        <Scripts />
+      </body>
+    </html>
+  );
+}
 
-createRoot(document.getElementById('root')!).render(
-  <StrictMode>
-    <ThemeProvider theme={theme}>
-      <GlobalStyles />
-      <RouterProvider router={router} />
-    </ThemeProvider>
-  </StrictMode>,
-)
+export default function Root() {
+  return (
+    <StrictMode>
+      <ThemeProvider theme={theme}>
+        <GlobalStyles />
+        <App />
+      </ThemeProvider>
+    </StrictMode>
+  );
+}
 
 // FIXME: ignored by router
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {

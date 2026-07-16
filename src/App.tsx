@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import { styled } from 'styled-components'
 import { useState } from 'react'
 import { Outlet, Link } from 'react-router-dom'
 import { IconButton } from './design-system/components/IconButton'

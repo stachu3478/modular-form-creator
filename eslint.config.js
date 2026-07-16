@@ -9,7 +9,7 @@ import reactRefresh from 'eslint-plugin-react-refresh'
 import tseslint from 'typescript-eslint'
 import { defineConfig, globalIgnores } from 'eslint/config'
 
-export default defineConfig([globalIgnores(['dist']), {
+export default defineConfig([globalIgnores(['dist', '.react-router']), {
   files: ['**/*.{ts,tsx}'],
   extends: [
     js.configs.recommended,
@@ -20,4 +20,9 @@ export default defineConfig([globalIgnores(['dist']), {
   languageOptions: {
     globals: globals.browser,
   },
-}, prettier, ...storybook.configs["flat/recommended"]])
+}, prettier, ...storybook.configs["flat/recommended"]], {
+  rules: {
+    // React router is set up in framework mode so this rule doesn't apply
+    'react-refresh/only-export-components': 'off'
+  }
+})

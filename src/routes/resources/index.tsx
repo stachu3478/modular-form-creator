@@ -3,6 +3,28 @@ import { Input } from "../../design-system";
 import { NewResourceForm, SubmitButton } from "./index.styles";
 import { ResourcesTable } from "./ResourcesTable/ResourcesTable";
 import { type Paginated, type Resource } from "./ResourcesTable/ResourcesTable.types";
+import { fetchFromApi } from "../loader";
+import type { Route } from "./+types";
+
+export async function clientAction({
+  request,
+}: Route.ActionArgs) {
+  const formData = await request.formData();
+  const response = await fetchFromApi('/resources', {
+    method: 'POST',
+    body: JSON.stringify(Object.fromEntries(formData)),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+  return response;
+}
+
+export async function clientLoader(): Promise<Paginated<Resource[]>> {
+  const res = await fetchFromApi('/resources');
+  const resources = await res.json();
+  return resources;
+}
 
 function ResourceForm() {
   return (
