@@ -39,7 +39,11 @@ export function Select({
       {label ? (
         <LabelRow>
           <Label htmlFor={selectId}>{label}</Label>
-          {tooltip ? <TooltipIcon aria-label={tooltip} data-tooltip={tooltip}>i</TooltipIcon> : null}
+          {tooltip ? (
+            <TooltipIcon aria-label={tooltip} data-tooltip={tooltip}>
+              i
+            </TooltipIcon>
+          ) : null}
         </LabelRow>
       ) : null}
       <ControlShell>

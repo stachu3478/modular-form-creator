@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import { styled } from 'styled-components'
 
 /** Full-screen overlay shown behind the drawer panel. */
 export const Overlay = styled.div<{ $isOpen: boolean }>`

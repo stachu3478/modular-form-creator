@@ -9,9 +9,7 @@ export function errorMiddleware(
 ) {
   void _next
   if (err instanceof ApiError) {
-    res
-      .status(err.statusCode)
-      .json({ message: err.message, details: err.details })
+    res.status(err.statusCode).json({ message: err.message, details: err.details })
     return
   }
 

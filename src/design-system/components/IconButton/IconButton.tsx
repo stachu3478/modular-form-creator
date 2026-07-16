@@ -14,7 +14,8 @@ export function IconButton({
   ...props
 }: IconButtonProps) {
   const resolvedState: IconButtonState = state ?? (disabled ? 'disabled' : 'normal')
-  const isDisabled = disabled || resolvedState === 'disabled' || resolvedState === 'locked'
+  const isDisabled =
+    disabled || resolvedState === 'disabled' || resolvedState === 'locked'
   const content = resolvedState === 'locked' ? lockedIcon : children
 
   return (

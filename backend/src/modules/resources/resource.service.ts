@@ -44,19 +44,19 @@ export interface ListResourcesResult {
 const isBasicInfoComplete = (basicInfo: BasicInfo) => {
   return Boolean(
     basicInfo.resourceName &&
-      basicInfo.owner &&
-      basicInfo.email &&
-      basicInfo.description &&
-      basicInfo.priority,
+    basicInfo.owner &&
+    basicInfo.email &&
+    basicInfo.description &&
+    basicInfo.priority,
   )
 }
 
 const isProjectDetailsComplete = (projectDetails: ProjectDetails) => {
   return Boolean(
     projectDetails.projectName &&
-      projectDetails.budget &&
-      projectDetails.category &&
-      projectDetails.options.length > 0,
+    projectDetails.budget &&
+    projectDetails.category &&
+    projectDetails.options.length > 0,
   )
 }
 
@@ -100,10 +100,7 @@ function validateOwner(value: string) {
     throw new ApiError(400, 'owner must be at most 255 characters long')
   }
   if (!OWNER_REGEX.test(trimmed)) {
-    throw new ApiError(
-      400,
-      'owner can contain only letters and spaces',
-    )
+    throw new ApiError(400, 'owner can contain only letters and spaces')
   }
 }
 
@@ -161,9 +158,7 @@ function validateBudget(value: string) {
 
 function validateProjectCategory(value: string) {
   if (
-    !PROJECT_CATEGORY_VALUES.includes(
-      value as (typeof PROJECT_CATEGORY_VALUES)[number],
-    )
+    !PROJECT_CATEGORY_VALUES.includes(value as (typeof PROJECT_CATEGORY_VALUES)[number])
   ) {
     throw new ApiError(400, 'category must be one of: internal, external, vendor')
   }
@@ -175,8 +170,7 @@ function validateTeamMembers(values: string[]) {
   }
 
   const invalid = values.find(
-    (value) =>
-      !TEAM_MEMBER_VALUES.includes(value as (typeof TEAM_MEMBER_VALUES)[number]),
+    (value) => !TEAM_MEMBER_VALUES.includes(value as (typeof TEAM_MEMBER_VALUES)[number]),
   )
   if (invalid) {
     throw new ApiError(400, `Unsupported team member option: ${invalid}`)
@@ -204,7 +198,10 @@ function validateBasicInfoPayload(data: Partial<BasicInfo>): asserts data is Bas
   validatePriority(data.priority)
 }
 
-function ensureResourceNameUnchanged(resource: { name: string; basicInfo: { resourceName: string } }, nextValue: string) {
+function ensureResourceNameUnchanged(
+  resource: { name: string; basicInfo: { resourceName: string } },
+  nextValue: string,
+) {
   const currentName = resource.basicInfo.resourceName.trim() || resource.name.trim()
   if (nextValue.trim() !== currentName) {
     throw new ApiError(400, 'resourceName is locked after creation and cannot be changed')
@@ -220,10 +217,7 @@ function validateProjectDetailsPayload(
     data.category === undefined ||
     data.options === undefined
   ) {
-    throw new ApiError(
-      400,
-      'projectName, budget, category and options are all required',
-    )
+    throw new ApiError(400, 'projectName, budget, category and options are all required')
   }
 
   validateProjectName(data.projectName)
@@ -317,10 +311,7 @@ export async function createResource(resourceName: string) {
   return resource.toJSON()
 }
 
-export async function updateBasicInfo(
-  query: ResourceQuery,
-  data: Partial<BasicInfo>,
-) {
+export async function updateBasicInfo(query: ResourceQuery, data: Partial<BasicInfo>) {
   const resource = await ResourceModel.findOne(query)
   if (!resource) {
     throw new ApiError(404, 'Resource not found')
@@ -407,10 +398,7 @@ export async function provisionResource(query: ResourceQuery) {
   }
 }
 
-export async function replaceResource(
-  query: ResourceQuery,
-  data: ResourcePayload,
-) {
+export async function replaceResource(query: ResourceQuery, data: ResourcePayload) {
   const resource = await ResourceModel.findOne(query)
   if (!resource) {
     throw new ApiError(404, 'Resource not found')

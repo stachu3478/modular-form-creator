@@ -1,4 +1,43 @@
-import type { Resource } from "./ResourcesTable.types";
+import type { Resource } from './ResourcesTable.types'
+
+export const resourceWithIncompleteBasicInfo: Resource = {
+  resourceId: 6,
+  name: 'Customer Portal Redesign',
+  status: 'draft',
+  basicInfo: {
+    resourceName: 'Customer Portal',
+    owner: 'Alicia Chen',
+    email: 'alicia.chen@company.com',
+    description: '',
+    priority: '',
+  },
+  projectDetails: {
+    projectName: '',
+    budget: '',
+    category: '',
+    options: [],
+  },
+}
+
+export const resourceWithIncompleteProjectDetails: Resource = {
+  resourceId: 7,
+  name: 'Customer Portal Redesign',
+  status: 'draft',
+  basicInfo: {
+    resourceName: 'Customer Portal',
+    owner: 'Alicia Chen',
+    email: 'alicia.chen@company.com',
+    description:
+      'Redesign the customer-facing portal to improve onboarding and support workflows.',
+    priority: 'High',
+  },
+  projectDetails: {
+    projectName: 'Portal Experience',
+    budget: '$120,000',
+    category: '',
+    options: [],
+  },
+}
 
 export const exampleResources: Resource[] = [
   {
@@ -9,7 +48,8 @@ export const exampleResources: Resource[] = [
       resourceName: 'Customer Portal',
       owner: 'Alicia Chen',
       email: 'alicia.chen@company.com',
-      description: 'Redesign the customer-facing portal to improve onboarding and support workflows.',
+      description:
+        'Redesign the customer-facing portal to improve onboarding and support workflows.',
       priority: 'High',
     },
     projectDetails: {
@@ -27,7 +67,8 @@ export const exampleResources: Resource[] = [
       resourceName: 'Inventory Sync',
       owner: 'Marcus Lee',
       email: 'marcus.lee@company.com',
-      description: 'Integrate warehouse inventory updates with the order management system.',
+      description:
+        'Integrate warehouse inventory updates with the order management system.',
       priority: 'Medium',
     },
     projectDetails: {
@@ -63,7 +104,8 @@ export const exampleResources: Resource[] = [
       resourceName: 'Campaign Dashboard',
       owner: 'Derek Brooks',
       email: 'derek.brooks@company.com',
-      description: 'Create a dashboard for tracking campaign performance across channels.',
+      description:
+        'Create a dashboard for tracking campaign performance across channels.',
       priority: 'High',
     },
     projectDetails: {
@@ -81,7 +123,8 @@ export const exampleResources: Resource[] = [
       resourceName: 'Onboarding Workflow',
       owner: 'Sara Gomez',
       email: 'sara.gomez@company.com',
-      description: 'Standardize the process for onboarding new clients with automated checkpoints.',
+      description:
+        'Standardize the process for onboarding new clients with automated checkpoints.',
       priority: 'Medium',
     },
     projectDetails: {
@@ -92,3 +135,7 @@ export const exampleResources: Resource[] = [
     },
   },
 ]
+
+export const filledDraftResource: Resource = { ...exampleResources[0], status: 'draft' }
+
+export const completeResource = exampleResources[0]

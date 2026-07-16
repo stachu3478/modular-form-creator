@@ -30,9 +30,7 @@ export function Input({
 }: InputProps) {
   const generatedId = useId()
   const inputId = id ?? generatedId
-  const resolvedState = disabled
-    ? 'disabled'
-    : state
+  const resolvedState = disabled ? 'disabled' : state
   const isLocked = resolvedState === 'locked'
   const isDisabled = resolvedState === 'disabled' || isLocked
   const resolvedHelperText = helperText ?? hint
@@ -43,7 +41,11 @@ export function Input({
       {label ? (
         <LabelRow>
           <Label htmlFor={inputId}>{label}</Label>
-          {tooltip ? <TooltipIcon aria-label={tooltip} data-tooltip={tooltip}>i</TooltipIcon> : null}
+          {tooltip ? (
+            <TooltipIcon aria-label={tooltip} data-tooltip={tooltip}>
+              i
+            </TooltipIcon>
+          ) : null}
         </LabelRow>
       ) : null}
       <ControlShell>

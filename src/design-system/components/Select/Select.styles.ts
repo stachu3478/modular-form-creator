@@ -89,15 +89,15 @@ export const Control = styled.select<SelectStyleProps>`
   padding: 12px 14px;
   border-radius: 12px;
   border: 1px solid
-    ${({ theme, $hasError }) =>
-      $hasError ? theme.colors.warning : theme.colors.border};
+    ${({ theme, $hasError }) => ($hasError ? theme.colors.warning : theme.colors.border)};
   font-size: 0.95rem;
-  background: ${({ $isLocked }) =>
-    $isLocked ? '#f4effb' : '#fff'};
+  background: ${({ $isLocked }) => ($isLocked ? '#f4effb' : '#fff')};
   color: inherit;
   cursor: ${({ $isLocked }) => ($isLocked ? 'not-allowed' : 'default')};
   padding-right: ${({ $isLocked }) => ($isLocked ? '62px' : '36px')};
-  transition: border 0.2s ease, box-shadow 0.2s ease;
+  transition:
+    border 0.2s ease,
+    box-shadow 0.2s ease;
 
   ${({ $isLocked }) =>
     $isLocked

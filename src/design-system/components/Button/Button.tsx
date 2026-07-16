@@ -15,7 +15,8 @@ export function Button({
   ...props
 }: ButtonProps) {
   const resolvedState: ButtonState = state ?? (disabled ? 'disabled' : 'normal')
-  const isDisabled = disabled || resolvedState === 'disabled' || resolvedState === 'locked'
+  const isDisabled =
+    disabled || resolvedState === 'disabled' || resolvedState === 'locked'
   const content =
     resolvedState === 'locked' ? (
       <>

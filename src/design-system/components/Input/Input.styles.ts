@@ -86,7 +86,9 @@ const sharedInputStyles = css`
   font-size: 0.95rem;
   background: #fff;
   color: inherit;
-  transition: border 0.2s ease, box-shadow 0.2s ease;
+  transition:
+    border 0.2s ease,
+    box-shadow 0.2s ease;
 
   &:focus {
     outline: none;

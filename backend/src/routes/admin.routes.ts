@@ -10,7 +10,7 @@ export const adminRouter = Router()
  *     summary: Clear all application data
  *     description: |
  *       Development/administration endpoint that deletes all resources from the database.
- *       
+ *
  *       Use for local reset scenarios only.
  *     tags:
  *       - Admin

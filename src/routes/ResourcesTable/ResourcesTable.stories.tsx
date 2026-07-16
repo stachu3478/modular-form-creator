@@ -8,7 +8,11 @@ const meta: Meta<typeof ResourcesTable> = {
   component: ResourcesTable,
   decorators: [
     (Story) => (
-      <RouterProvider router={createMemoryRouter([{ path: '/', element: <Story /> }], { initialEntries: ['/'] })} />
+      <RouterProvider
+        router={createMemoryRouter([{ path: '/', element: <Story /> }], {
+          initialEntries: ['/'],
+        })}
+      />
     ),
   ],
   args: {

@@ -19,7 +19,7 @@ export const resourceRouter = Router()
  *     summary: Get all resources
  *     description: |
  *       Returns resources using backend-driven filtering, sorting, and pagination.
- *       
+ *
  *       Supported query params:
  *       - `page` (default `1`)
  *       - `pageSize` (default `10`, max `100`)
@@ -80,7 +80,7 @@ resourceRouter.get('/', listResourcesHandler)
  *       Loads one resource using either:
  *       - numeric resourceId (for example `1`), or
  *       - Mongo ObjectId.
- *       
+ *
  *       Returns 400 for invalid id format and 404 when the resource does not exist.
  *     tags:
  *       - Resources
@@ -120,7 +120,7 @@ resourceRouter.get('/:id', getResourceHandler)
  *     summary: Create a new resource
  *     description: |
  *       Creates a new resource in `draft` status.
- *       
+ *
  *       Business defaults on create:
  *       - `status = draft`
  *       - `resourceId` is auto-incremented
@@ -157,7 +157,7 @@ resourceRouter.post('/', createResourceHandler)
  *     summary: Update basic info module (draft resources only)
  *     description: |
  *       Updates the Basic Info module only when resource status is `draft`.
- *       
+ *
  *       Business rule:
  *       - `resourceName` is immutable and cannot be changed after create.
  *       - Completed resources cannot be updated via module PATCH endpoints.
@@ -206,7 +206,7 @@ resourceRouter.patch('/:id/basic-info', updateBasicInfoHandler)
  *     summary: Update project details module (draft resources only)
  *     description: |
  *       Updates the Project Details module only when resource status is `draft`.
- *       
+ *
  *       Business rule:
  *       - Basic Info must be completed first.
  *       - Completed resources cannot be updated via module PATCH endpoints.
@@ -255,7 +255,7 @@ resourceRouter.patch('/:id/project-details', updateProjectDetailsHandler)
  *     summary: Mark resource as completed
  *     description: |
  *       The only endpoint that can change status.
- *       
+ *
  *       Business rule:
  *       - Allowed only when current status is `draft`.
  *       - Basic Info and Project Details must both be complete before provisioning.
@@ -302,7 +302,7 @@ resourceRouter.patch('/:id/provisioning', provisionResourceHandler)
  *       - `name`
  *       - `basicInfo`
  *       - `projectDetails`
- *       
+ *
  *       Business rule:
  *       - allowed only when resource status is `completed`.
  *       - drafts cannot be replaced using this endpoint.
@@ -382,4 +382,3 @@ resourceRouter.put('/:id', replaceResourceHandler)
  *               $ref: '#/components/schemas/ErrorResponse'
  */
 resourceRouter.delete('/:id', deleteResourceHandler)
-

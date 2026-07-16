@@ -19,14 +19,14 @@ describe('navigation drawer', () => {
           ],
         },
       ],
-      { initialEntries: ['/'] }
+      { initialEntries: ['/'] },
     )
 
     render(
       <ThemeProvider theme={theme}>
         <GlobalStyles />
         <RouterProvider router={router} />
-      </ThemeProvider>
+      </ThemeProvider>,
     )
 
     fireEvent.click(screen.getByRole('button', { name: /open navigation/i }))

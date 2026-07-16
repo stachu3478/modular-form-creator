@@ -1,13 +1,6 @@
 import { Checkbox } from '../Checkbox'
 import type { CheckboxGroupProps } from './CheckboxGroup.types'
-import {
-  Group,
-  Helper,
-  Label,
-  LabelRow,
-  List,
-  TooltipIcon,
-} from './CheckboxGroup.styles'
+import { Group, Helper, Label, LabelRow, List, TooltipIcon } from './CheckboxGroup.styles'
 
 /**
  * Checkbox group with optional helper/error text and label tooltip.
@@ -26,7 +19,11 @@ export function CheckboxGroup({
     <Group>
       <LabelRow>
         <Label>{label}</Label>
-        {tooltip ? <TooltipIcon aria-label={tooltip} data-tooltip={tooltip}>i</TooltipIcon> : null}
+        {tooltip ? (
+          <TooltipIcon aria-label={tooltip} data-tooltip={tooltip}>
+            i
+          </TooltipIcon>
+        ) : null}
       </LabelRow>
       <List>
         {options.map((option) => {

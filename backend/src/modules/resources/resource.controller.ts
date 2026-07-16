@@ -26,11 +26,7 @@ const parseResourceQuery = (value: string) => {
   throw new ApiError(400, 'Resource id must be a positive number or ObjectId')
 }
 
-const parsePositiveInt = (
-  raw: unknown,
-  fallback: number,
-  fieldName: string,
-) => {
+const parsePositiveInt = (raw: unknown, fallback: number, fieldName: string) => {
   if (raw === undefined) {
     return fallback
   }
@@ -98,42 +94,50 @@ export const createResourceHandler = asyncHandler(async (req: Request, res: Resp
   res.status(201).json(resource)
 })
 
-export const updateBasicInfoHandler = asyncHandler(async (req: Request, res: Response) => {
-  if (!req.params.id) {
-    throw new ApiError(400, 'Resource id is required')
-  }
-  const query = parseResourceQuery(req.params.id)
-  const resource = await updateBasicInfo(query, req.body ?? {})
-  res.json(resource)
-})
+export const updateBasicInfoHandler = asyncHandler(
+  async (req: Request, res: Response) => {
+    if (!req.params.id) {
+      throw new ApiError(400, 'Resource id is required')
+    }
+    const query = parseResourceQuery(req.params.id)
+    const resource = await updateBasicInfo(query, req.body ?? {})
+    res.json(resource)
+  },
+)
 
-export const updateProjectDetailsHandler = asyncHandler(async (req: Request, res: Response) => {
-  if (!req.params.id) {
-    throw new ApiError(400, 'Resource id is required')
-  }
-  const query = parseResourceQuery(req.params.id)
-  const resource = await updateProjectDetails(query, req.body ?? {})
-  res.json(resource)
-})
+export const updateProjectDetailsHandler = asyncHandler(
+  async (req: Request, res: Response) => {
+    if (!req.params.id) {
+      throw new ApiError(400, 'Resource id is required')
+    }
+    const query = parseResourceQuery(req.params.id)
+    const resource = await updateProjectDetails(query, req.body ?? {})
+    res.json(resource)
+  },
+)
 
-export const provisionResourceHandler = asyncHandler(async (req: Request, res: Response) => {
-  if (!req.params.id) {
-    throw new ApiError(400, 'Resource id is required')
-  }
+export const provisionResourceHandler = asyncHandler(
+  async (req: Request, res: Response) => {
+    if (!req.params.id) {
+      throw new ApiError(400, 'Resource id is required')
+    }
 
-  const query = parseResourceQuery(req.params.id)
-  const resource = await provisionResource(query)
-  res.json(resource.resource)
-})
+    const query = parseResourceQuery(req.params.id)
+    const resource = await provisionResource(query)
+    res.json(resource.resource)
+  },
+)
 
-export const replaceResourceHandler = asyncHandler(async (req: Request, res: Response) => {
-  if (!req.params.id) {
-    throw new ApiError(400, 'Resource id is required')
-  }
-  const query = parseResourceQuery(req.params.id)
-  const resource = await replaceResource(query, req.body)
-  res.json(resource)
-})
+export const replaceResourceHandler = asyncHandler(
+  async (req: Request, res: Response) => {
+    if (!req.params.id) {
+      throw new ApiError(400, 'Resource id is required')
+    }
+    const query = parseResourceQuery(req.params.id)
+    const resource = await replaceResource(query, req.body)
+    res.json(resource)
+  },
+)
 
 export const deleteResourceHandler = asyncHandler(async (req: Request, res: Response) => {
   if (!req.params.id) {
