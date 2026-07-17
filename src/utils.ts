@@ -12,3 +12,18 @@ export function debounce<T>(fn: (...args: T[]) => void, delay = 3000): typeof fn
     }, delay)
   }
 }
+
+export function formDataToObject(
+  data: FormData,
+  { checkBoxFields }: { checkBoxFields: string[] } = { checkBoxFields: [] },
+) {
+  const entries = [...data.entries()]
+  return Object.fromEntries(
+    entries.map(([k, v]) => {
+      if (checkBoxFields.indexOf(k) !== -1) {
+        return [k, entries.filter(([ck]) => ck === k).map((kv) => kv[1])]
+      }
+      return [k, v]
+    }),
+  )
+}

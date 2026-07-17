@@ -1,3 +1,5 @@
+export type TeamMember = 'FE devs' | 'BE devs' | 'Designer' | 'Data Eng' | 'Product Owner'
+
 export interface Paginated<T> {
   items: T[]
   pagination: {
@@ -23,6 +25,6 @@ export interface Resource {
     projectName: string
     budget: string
     category: string
-    options: string[]
+    options: TeamMember[]
   }
 }

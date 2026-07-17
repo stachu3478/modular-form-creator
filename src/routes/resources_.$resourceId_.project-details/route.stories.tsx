@@ -3,7 +3,7 @@ import ResourcePage from './route'
 import { createMemoryRouter, RouterProvider } from 'react-router'
 import {
   completeResource,
-  resourceWithIncompleteBasicInfo,
+  filledDraftResource,
   resourceWithIncompleteProjectDetails,
 } from '../components/ResourcesTable/ResourcesTable.mocks'
 import { expect, fn } from 'storybook/test'
@@ -11,7 +11,7 @@ import { expect, fn } from 'storybook/test'
 const resourceLoader = fn(() => completeResource)
 
 const meta: Meta<typeof ResourcePage> = {
-  title: 'Page/Resource Basic Info',
+  title: 'Page/Resource Project Details',
   component: ResourcePage,
   decorators: [
     (Story) => (
@@ -44,21 +44,22 @@ type Story = StoryObj<typeof ResourcePage>
 
 export const PageWithIncompleteBasicInfo: Story = {
   beforeEach: () => {
-    resourceLoader.mockImplementation(() => resourceWithIncompleteBasicInfo)
-  },
-  play: async ({ canvas }) => {
-    expect(canvas.getByTestId('main')).toHaveTextContent('Basic Info')
-    expect(canvas.getByTestId('main')).toHaveTextContent('Draft Saved')
-    expect(canvas.getByTestId('main')).not.toHaveTextContent('Proceed to Project Details')
-  },
-}
-
-export const PageWithCompletedBasicInfo: Story = {
-  beforeEach: () => {
     resourceLoader.mockImplementation(() => resourceWithIncompleteProjectDetails)
   },
   play: async ({ canvas }) => {
-    expect(canvas.getByTestId('main')).toHaveTextContent('Proceed to Project Details')
+    expect(canvas.getByTestId('main')).toHaveTextContent('Draft Saved')
+    expect(canvas.getByTestId('main')).toHaveTextContent('Project Details')
+    expect(canvas.getByTestId('main')).not.toHaveTextContent('Proceed to Summary')
+  },
+}
+
+export const PageWithCompletedProjectDetails: Story = {
+  beforeEach: () => {
+    resourceLoader.mockImplementation(() => filledDraftResource)
+  },
+  play: async ({ canvas }) => {
+    expect(canvas.getByTestId('main')).toHaveTextContent('Draft Saved')
+    expect(canvas.getByTestId('main')).toHaveTextContent('Proceed to Summary')
   },
 }
 
@@ -67,7 +68,8 @@ export const PageWithCompleteResource: Story = {
     resourceLoader.mockImplementation(() => completeResource)
   },
   play: async ({ canvas }) => {
+    expect(canvas.getByTestId('main')).toHaveTextContent('Changes Saved')
     expect(canvas.getByTestId('main')).toHaveTextContent('Save Changes')
-    expect(canvas.getByTestId('main')).not.toHaveTextContent('Proceed to Project Details')
+    expect(canvas.getByTestId('main')).not.toHaveTextContent('Proceed to Summary')
   },
 }

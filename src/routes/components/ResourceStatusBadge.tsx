@@ -13,7 +13,7 @@ export default function ResourceStatusBadge({ resource }: { resource: Resource }
       )
     }
     return (
-      <Badge variant="warning">
+      <Badge variant="neutral">
         This resource is in draft. Fill in the remaining information to be able to
         provision the resource.
       </Badge>

@@ -1,6 +1,6 @@
 import { useLoaderData } from 'react-router'
 import { Input } from '../../design-system'
-import { NewResourceForm, SubmitButton } from './styles'
+import { NewResourceForm, SubmitButton } from './styled'
 import { ResourcesTable } from '../components/ResourcesTable/ResourcesTable'
 import {
   type Paginated,

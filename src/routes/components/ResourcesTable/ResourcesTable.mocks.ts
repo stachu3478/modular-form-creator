@@ -33,7 +33,7 @@ export const resourceWithIncompleteProjectDetails: Resource = {
   },
   projectDetails: {
     projectName: 'Portal Experience',
-    budget: '$120,000',
+    budget: '120000',
     category: '',
     options: [],
   },
@@ -54,9 +54,9 @@ export const exampleResources: Resource[] = [
     },
     projectDetails: {
       projectName: 'Portal Experience',
-      budget: '$120,000',
-      category: 'UX',
-      options: ['Accessibility', 'Analytics', 'Mobile-first'],
+      budget: '120000',
+      category: 'external',
+      options: ['Product Owner', 'Designer', 'FE devs'],
     },
   },
   {
@@ -73,9 +73,9 @@ export const exampleResources: Resource[] = [
     },
     projectDetails: {
       projectName: 'Operations Automation',
-      budget: '$75,000',
-      category: 'Integration',
-      options: ['Realtime Sync', 'Bulk Import', 'Audit Logs'],
+      budget: '75000',
+      category: 'vendor',
+      options: ['Data Eng', 'BE devs'],
     },
   },
   {
@@ -91,9 +91,9 @@ export const exampleResources: Resource[] = [
     },
     projectDetails: {
       projectName: 'Team Enablement',
-      budget: '$40,000',
-      category: 'Content',
-      options: ['Search', 'Versioning', 'Permissions'],
+      budget: '40000',
+      category: 'internal',
+      options: ['BE devs', 'FE devs'],
     },
   },
   {
@@ -110,9 +110,9 @@ export const exampleResources: Resource[] = [
     },
     projectDetails: {
       projectName: 'Growth Analytics',
-      budget: '$90,000',
-      category: 'Analytics',
-      options: ['Filtering', 'Exports', 'Alerts'],
+      budget: '90000',
+      category: 'vendor',
+      options: ['FE devs', 'Data Eng', 'Product Owner'],
     },
   },
   {
@@ -129,9 +129,9 @@ export const exampleResources: Resource[] = [
     },
     projectDetails: {
       projectName: 'Client Success',
-      budget: '$65,000',
-      category: 'Process',
-      options: ['Automation', 'Notifications', 'Templates'],
+      budget: '65000',
+      category: 'external',
+      options: ['Product Owner', 'Designer'],
     },
   },
 ]
