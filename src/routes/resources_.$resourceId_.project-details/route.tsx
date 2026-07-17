@@ -150,7 +150,7 @@ export default function ResourcePage() {
             }
           />
           {options.map((o) => (
-            <input type="hidden" value={o} name="options" />
+            <input type="hidden" key={o} value={o} name="options" />
           ))}
           <br />
 
@@ -163,7 +163,7 @@ export default function ResourcePage() {
             </SubmitButton>
           ) : (
             projectDetailsCompleted && (
-              <Link to={`/resources/${resource.resourceId}/project-details`}>
+              <Link to={`/resources/${resource.resourceId}/details`}>
                 <SubmitButton variant="secondary" fullWidth>
                   Proceed to Summary
                 </SubmitButton>
