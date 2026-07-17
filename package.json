@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "build": "react-router typegen && tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
     "start": "react-router-serve ./build/server/index.js",
@@ -14,20 +14,19 @@
     "build-storybook": "storybook build"
   },
   "dependencies": {
-    "@react-router/fs-routes": "7.15.1",
-    "@react-router/node": "7.15.1",
-    "@react-router/serve": "7.15.1",
+    "@react-router/fs-routes": "^8.2.0",
+    "@react-router/node": "^8.2.0",
+    "@react-router/serve": "^8.2.0",
     "isbot": "^5",
-    "react": "19.2.6",
-    "react-dom": "19.2.6",
-    "react-router": "7.15.1",
-    "react-router-dom": "7.15.1",
+    "react": "19.2.7",
+    "react-dom": "19.2.7",
+    "react-router": "^8.2.0",
     "styled-components": "6.4.1"
   },
   "devDependencies": {
     "@chromatic-com/storybook": "5.2.1",
     "@eslint/js": "10.0.1",
-    "@react-router/dev": "7.15.1",
+    "@react-router/dev": "^8.2.0",
     "@storybook/addon-a11y": "10.4.0",
     "@storybook/addon-docs": "10.4.0",
     "@storybook/addon-vitest": "10.4.0",

@@ -1,9 +1,13 @@
 services:
   frontend:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile
     ports:
       - "5173:5173"
     container_name: modular-form-creator-frontend
+    depends_on:
+      - backend
 
   backend:
     build: ./backend
@@ -16,6 +20,7 @@ services:
       CORS_ORIGIN: "http://localhost:5173"
     depends_on:
       - mongo
+
   mongo:
     image: mongo:7
     container_name: modular-form-creator-mongo
