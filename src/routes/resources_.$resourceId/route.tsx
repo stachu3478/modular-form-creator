@@ -7,6 +7,7 @@ import { styled } from 'styled-components'
 import type { Route } from './+types/route'
 import ProgressBadge from '../components/ProgressBadge'
 import ResourceStatusBadge from '../components/ResourceStatusBadge'
+import { BackLinkButton } from '../components/styled'
 
 export async function clientLoader({ params }: Route.LoaderArgs): Promise<Resource> {
   const res = await fetchFromApi(`/resources/${params.resourceId}`)
@@ -28,7 +29,7 @@ export default function ResourcePage() {
   return (
     <div>
       <BackLink to="/resources">
-        <Button variant="ghost">🠔 Resources</Button>
+        <BackLinkButton variant="ghost">🠔 Resources</BackLinkButton>
       </BackLink>
       <Card>
         <h1>{resource.name}</h1>

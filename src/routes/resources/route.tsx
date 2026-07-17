@@ -1,6 +1,6 @@
 import { useLoaderData } from 'react-router'
 import { Input } from '../../design-system'
-import { NewResourceForm, SubmitButton } from './resources.styles'
+import { NewResourceForm, SubmitButton } from './styles'
 import { ResourcesTable } from '../components/ResourcesTable/ResourcesTable'
 import {
   type Paginated,
@@ -30,8 +30,12 @@ export async function clientLoader(): Promise<Paginated<Resource[]>> {
 function ResourceForm() {
   return (
     <NewResourceForm method="POST">
-      <label htmlFor="resource-name-input">Resource name</label>
-      <Input id="resource-name-input" type="text" name="resourceName" />
+      <Input
+        label="Resource name"
+        id="resource-name-input"
+        type="text"
+        name="resourceName"
+      />
       <SubmitButton type="submit">+ Create new resource</SubmitButton>
     </NewResourceForm>
   )

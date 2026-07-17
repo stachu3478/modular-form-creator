@@ -6,7 +6,8 @@ import { useBusinessLogic } from '../../businessLogic'
 import type { Route } from './+types/route'
 import ProgressBadge from '../components/ProgressBadge'
 import ResourceStatusBadge from '../components/ResourceStatusBadge'
-import { BackLinkButton, EnhancedHeading } from './styled'
+import { EnhancedHeading } from './styled'
+import { BackLinkButton } from '../components/styled'
 
 export async function clientLoader({ params }: Route.LoaderArgs): Promise<Resource> {
   const res = await fetchFromApi(`/resources/${params.resourceId}`)
