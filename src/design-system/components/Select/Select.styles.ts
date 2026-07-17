@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import { styled } from 'styled-components'
 
 /** Wrapper for the full field block. */
 export const Field = styled.div`

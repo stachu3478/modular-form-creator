@@ -27,3 +27,4 @@ build-ssr
 storybook-static
 
 .react-router/
+.env

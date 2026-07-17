@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import { styled } from 'styled-components'
 
 /** Inline wrapper for checkbox and label. */
 export const Wrapper = styled.div`

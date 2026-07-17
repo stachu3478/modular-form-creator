@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import { styled } from 'styled-components'
 import type { CardVariant } from './Card.types'
 import { cardVariantStyles } from './Card.variants'
 

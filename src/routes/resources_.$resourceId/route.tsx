@@ -1,6 +1,5 @@
 import { Form, Link, useLoaderData } from 'react-router'
 import type { Resource } from '../components/ResourcesTable/ResourcesTable.types'
-import { fetchFromApi } from '../loader'
 import { Badge, Button, Card, Drawer } from '../../design-system'
 import { useBusinessLogic } from '../../businessLogic'
 import type { Route } from './+types/route'
@@ -8,6 +7,7 @@ import ProgressBadge from '../components/ProgressBadge'
 import ResourceStatusBadge from '../components/ResourceStatusBadge'
 import { BackLinkButton } from '../components/styled'
 import { useState } from 'react'
+import { fetchFromApi } from '../../utils'
 
 export async function clientAction({ params }: Route.ActionArgs): Promise<Resource> {
   const res = await fetchFromApi(`/resources/${params.resourceId}/provisioning`, {

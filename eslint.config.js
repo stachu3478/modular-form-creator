@@ -11,7 +11,7 @@ import { defineConfig, globalIgnores } from 'eslint/config'
 
 export default defineConfig(
   [
-    globalIgnores(['dist', '.react-router']),
+    globalIgnores(['build', '.react-router']),
     {
       files: ['**/*.{ts,tsx}'],
       extends: [

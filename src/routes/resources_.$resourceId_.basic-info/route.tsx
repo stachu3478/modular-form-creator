@@ -1,15 +1,14 @@
 import { Link, useFetcher, useLoaderData } from 'react-router'
 import type { Resource } from '../components/ResourcesTable/ResourcesTable.types'
-import { fetchFromApi } from '../loader'
 import { Badge, Card, Input, Select } from '../../design-system'
 import { useBusinessLogic } from '../../businessLogic'
 import type { Route } from './+types/route'
 import ProgressBadge from '../components/ProgressBadge'
 import ResourceStatusBadge from '../components/ResourceStatusBadge'
 import { BackLinkButton } from '../components/styled'
-import { capitalize, debounce } from '../../utils'
+import { capitalize, debounce, fetchFromApi } from '../../utils'
 import { useState } from 'react'
-import { SubmitButton } from './styled'
+import { SubmitButton } from './styles'
 
 export async function clientAction({ request, params }: Route.ActionArgs) {
   return fetchFromApi(`/resources/${params.resourceId}/basic-info`, {

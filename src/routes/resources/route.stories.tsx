@@ -56,9 +56,11 @@ export const Page: Story = {}
 
 export const PageWithSubmittedResourceName: Story = {
   play: async ({ canvas, userEvent }) => {
+    await userEvent.click(canvas.getByRole('button', { name: '+ Create new resource' }))
+
     await userEvent.type(canvas.getByLabelText('Resource name'), 'My resource name')
 
-    await userEvent.click(canvas.getByRole('button', { name: '+ Create new resource' }))
+    await userEvent.click(canvas.getByRole('button', { name: 'Create new resource' }))
 
     expect(submitAction).toHaveBeenCalled()
   },
@@ -68,6 +70,11 @@ export const PageWithRemovedResource: Story = {
   play: async ({ canvas, userEvent }) => {
     const firstResourceDeleteButton = canvas.getAllByRole('button', { name: 'Delete' })[0]
     await userEvent.click(firstResourceDeleteButton)
+
+    const firstResourceDeleteConfirmationButton = canvas.getByRole('button', {
+      name: 'Confirm Removal',
+    })
+    await userEvent.click(firstResourceDeleteConfirmationButton)
 
     expect(deleteAction).toHaveBeenCalled()
   },

@@ -3,15 +3,14 @@ import type {
   Resource,
   TeamMember,
 } from '../components/ResourcesTable/ResourcesTable.types'
-import { fetchFromApi } from '../loader'
 import { Badge, Card, CheckboxGroup, Input, Select } from '../../design-system'
 import { useBusinessLogic } from '../../businessLogic'
 import type { Route } from './+types/route'
 import ResourceStatusBadge from '../components/ResourceStatusBadge'
 import { BackLinkButton } from '../components/styled'
-import { capitalize, debounce, formDataToObject } from '../../utils'
+import { capitalize, debounce, fetchFromApi, formDataToObject } from '../../utils'
 import { useState } from 'react'
-import { SubmitButton } from './styled'
+import { SubmitButton } from './styles'
 
 export async function clientAction({ request, params }: Route.ActionArgs) {
   return fetchFromApi(`/resources/${params.resourceId}/project-details`, {
@@ -43,7 +42,7 @@ export default function ResourcePage() {
   const [category, setCategory] = useState(resource.projectDetails.category)
   const [budget, setBudget] = useState(resource.projectDetails.budget)
   const [options, setOptions] = useState(resource.projectDetails.options)
-  const [form, setForm] = useState<HTMLFormElement | null>(null)
+  const [form, setForm] = useState<HTMLFormElement>()
   const [formStatus, setFormStatus] = useState(
     resource.status === 'draft' ? 'Draft Saved' : 'Changes Saved',
   )
@@ -61,7 +60,7 @@ export default function ResourcePage() {
 
   function handleChange(e?: AnyInputChangeEvent) {
     setFormStatus('Saving draft')
-    if (e) {
+    if (e?.target.form) {
       setForm(e.target.form)
     }
     if (resource.status === 'draft' && form) {

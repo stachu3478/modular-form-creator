@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import { styled } from 'styled-components'
 import type { BadgeVariant } from './Badge.types'
 import { badgeVariantStyles } from './Badge.variants'
 

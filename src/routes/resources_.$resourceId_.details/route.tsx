@@ -1,13 +1,13 @@
 import { Link, useLoaderData } from 'react-router'
 import type { Resource } from '../components/ResourcesTable/ResourcesTable.types'
-import { fetchFromApi } from '../loader'
 import { Card } from '../../design-system'
 import { useBusinessLogic } from '../../businessLogic'
 import type { Route } from './+types/route'
 import ProgressBadge from '../components/ProgressBadge'
 import ResourceStatusBadge from '../components/ResourceStatusBadge'
-import { EnhancedHeading } from './styled'
+import { EnhancedHeading } from './styles'
 import { BackLinkButton } from '../components/styled'
+import { fetchFromApi } from '../../utils'
 
 export async function clientLoader({ params }: Route.LoaderArgs): Promise<Resource> {
   const res = await fetchFromApi(`/resources/${params.resourceId}`)
