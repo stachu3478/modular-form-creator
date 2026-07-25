@@ -6,9 +6,10 @@ import type { Route } from './+types/route'
 import ProgressBadge from '../components/ProgressBadge'
 import ResourceStatusBadge from '../components/ResourceStatusBadge'
 import { BackLinkButton } from '../components/styled'
-import { capitalize, debounce, fetchFromApi } from '../../utils'
+import { capitalize, fetchFromApi } from '../../utils'
 import { useState } from 'react'
 import { SubmitButton } from './styles'
+import debounce from 'debounce'
 
 export async function clientAction({ request, params }: Route.ActionArgs) {
   return fetchFromApi(`/resources/${params.resourceId}/basic-info`, {
@@ -52,7 +53,7 @@ export default function ResourcePage() {
     } else {
       setFormStatus('Changes Saved')
     }
-  })
+  }, 3000)
 
   function handleChange(e: AnyInputChangeEvent) {
     if (resource.status === 'draft') {

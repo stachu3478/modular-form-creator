@@ -8,9 +8,10 @@ import { useBusinessLogic } from '../../businessLogic'
 import type { Route } from './+types/route'
 import ResourceStatusBadge from '../components/ResourceStatusBadge'
 import { BackLinkButton } from '../components/styled'
-import { capitalize, debounce, fetchFromApi, formDataToObject } from '../../utils'
+import { capitalize, fetchFromApi, formDataToObject } from '../../utils'
 import { useState } from 'react'
 import { SubmitButton } from './styles'
+import debounce from 'debounce'
 
 export async function clientAction({ request, params }: Route.ActionArgs) {
   return fetchFromApi(`/resources/${params.resourceId}/project-details`, {
@@ -56,7 +57,7 @@ export default function ResourcePage() {
     } else {
       setFormStatus('Changes Saved')
     }
-  })
+  }, 3000)
 
   function handleChange(e?: AnyInputChangeEvent) {
     setFormStatus('Saving draft')
