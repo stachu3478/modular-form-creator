@@ -14,6 +14,8 @@ export const NewResourceForm = styled(Form)`
   gap: 1rem;
 `
 
-export const NewResourceButton = styled(Button)`
-  justify-self: flex-end;
+export const NewResourceButton = styled(Button)``
+
+export const Spacer = styled.div`
+  flex-grow: 10;
 `

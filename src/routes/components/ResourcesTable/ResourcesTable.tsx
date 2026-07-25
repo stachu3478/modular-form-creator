@@ -6,6 +6,7 @@ import {
   DeleteButton,
   Table,
   TableCell,
+  TableHeader,
   TableRow,
 } from './ResourcesTable.styles'
 import { useState } from 'react'
@@ -28,12 +29,12 @@ export function ResourcesTable({ resources }: { resources: Resource[] }) {
       <Table>
         <tbody>
           <TableRow>
-            <th>Name</th>
-            <th>Owner</th>
-            <th>Project name</th>
-            <th>Category</th>
-            <th>Priority</th>
-            <th>Actions</th>
+            <TableHeader>Name</TableHeader>
+            <TableHeader>Owner</TableHeader>
+            <TableHeader>Project name</TableHeader>
+            <TableHeader>Category</TableHeader>
+            <TableHeader>Priority</TableHeader>
+            <TableHeader>Actions</TableHeader>
           </TableRow>
           {resources.map((resource) => (
             <TableRow key={resource.resourceId} id={String(resource.resourceId)}>
