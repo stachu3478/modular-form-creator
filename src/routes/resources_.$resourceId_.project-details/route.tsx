@@ -8,10 +8,10 @@ import { useBusinessLogic } from '../../businessLogic'
 import type { Route } from './+types/route'
 import ResourceStatusBadge from '../components/ResourceStatusBadge'
 import { BackLinkButton } from '../components/styled'
-import { capitalize, fetchFromApi, formDataToObject } from '../../utils'
+import { capitalize, fetchFromApi, formDataToObject, useDebounce } from '../../utils'
 import { useState } from 'react'
 import { SubmitButton } from './styles'
-import debounce from 'debounce'
+import FormStatusBadge from '../components/FormStatusBadge'
 
 export async function clientAction({ request, params }: Route.ActionArgs) {
   return fetchFromApi(`/resources/${params.resourceId}/project-details`, {
@@ -44,28 +44,27 @@ export default function ResourcePage() {
   const [budget, setBudget] = useState(resource.projectDetails.budget)
   const [options, setOptions] = useState(resource.projectDetails.options)
   const [form, setForm] = useState<HTMLFormElement>()
-  const [formStatus, setFormStatus] = useState(
-    resource.status === 'draft' ? 'Draft Saved' : 'Changes Saved',
-  )
+  const [isSaved, setIsSaved] = useState(true)
+  const [isSaving, setIsSaving] = useState(false)
   const fetcher = useFetcher()
-  const saveDraft = debounce(async (f: HTMLFormElement) => {
-    await fetcher.submit(f, { method: 'PATCH' })
-    if (fetcher.data?.message) {
-      setFormStatus('Draft not saved. Fix errors above before continuing.')
-    } else if (resource.status === 'draft') {
-      setFormStatus('Draft Saved')
-    } else {
-      setFormStatus('Changes Saved')
+  const saveDraft = useDebounce(async () => {
+    if (!form) {
+      return false
     }
+    setIsSaving(true)
+    await fetcher.submit(form, { method: 'PATCH' }).finally(() => {
+      setIsSaving(false)
+    })
+    setIsSaved(true)
   }, 3000)
 
   function handleChange(e?: AnyInputChangeEvent) {
-    setFormStatus('Saving draft')
+    setIsSaved(false)
     if (e?.target.form) {
       setForm(e.target.form)
     }
     if (resource.status === 'draft' && form) {
-      saveDraft(form)
+      saveDraft()
     }
   }
 
@@ -88,8 +87,6 @@ export default function ResourcePage() {
     setOptions(val)
     handleChange()
   }
-
-  const isSaved = formStatus.includes('Saved')
 
   return (
     <div>
@@ -154,7 +151,12 @@ export default function ResourcePage() {
           ))}
           <br />
 
-          <Badge variant={isSaved ? 'success' : 'warning'}>{formStatus}</Badge>
+          <FormStatusBadge
+            pending={isSaving}
+            isSaved={isSaved}
+            isDraft={resource.status === 'draft'}
+            error={!!fetcher.data?.message}
+          />
           <br />
 
           {resource.status === 'completed' ? (

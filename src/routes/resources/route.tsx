@@ -8,8 +8,7 @@ import {
 } from '../components/ResourcesTable/ResourcesTable.types'
 import type { Route } from './+types/route'
 import { useState } from 'react'
-import { fetchFromApi } from '../../utils'
-import debounce from 'debounce'
+import { fetchFromApi, useDebounce } from '../../utils'
 
 export async function clientAction({ request }: Route.ActionArgs) {
   const formData = await request.formData()
@@ -60,7 +59,10 @@ export default function ResourcesPage() {
   const [page, setPage] = useState(1)
   const [, setSearchParams] = useSearchParams()
 
-  const handleSearchText = debounce((e: AnyInputChangeEvent) => {
+  const handleSearchText = useDebounce((e?: AnyInputChangeEvent) => {
+    if (!e) {
+      return //idk
+    }
     setSearchText(e.target.value)
     setSearchParams({ name: e.target.value, page: page.toString(), sortOrder })
   }, 500)

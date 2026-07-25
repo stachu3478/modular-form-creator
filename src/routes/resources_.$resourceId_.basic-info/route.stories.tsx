@@ -8,6 +8,8 @@ import {
 } from '../components/ResourcesTable/ResourcesTable.mocks'
 import { expect, fn } from 'storybook/test'
 
+const saveAction = fn(() => 'Ok!')
+
 const resourceLoader = fn(() => completeResource)
 
 const meta: Meta<typeof ResourcePage> = {
@@ -26,6 +28,7 @@ const meta: Meta<typeof ResourcePage> = {
                 </div>
               ),
               loader: resourceLoader,
+              action: saveAction,
             },
           ],
           { initialEntries: ['/resources/7/basic-info'] },
@@ -48,7 +51,36 @@ export const PageWithIncompleteBasicInfo: Story = {
   },
   play: async ({ canvas }) => {
     expect(canvas.getByTestId('main')).toHaveTextContent('Basic Info')
-    expect(canvas.getByTestId('main')).toHaveTextContent('Draft Saved')
+    expect(canvas.getByTestId('main')).toHaveTextContent('Changes Saved')
+    expect(canvas.getByTestId('main')).not.toHaveTextContent('Proceed to Project Details')
+  },
+}
+
+export const PageWithDirtyBasicInfo: Story = {
+  beforeEach: () => {
+    resourceLoader.mockImplementation(() => resourceWithIncompleteBasicInfo)
+  },
+  play: async ({ canvas, userEvent }) => {
+    const emailField = canvas.getByLabelText('E-mail')
+    await userEvent.type(emailField, 'john.doe@hmail.com')
+
+    expect(canvas.getByTestId('main')).toHaveTextContent('Saving...')
+    expect(canvas.getByTestId('main')).not.toHaveTextContent('Proceed to Project Details')
+  },
+}
+
+export const PageWithEditedBasicInfo: Story = {
+  beforeEach: () => {
+    resourceLoader.mockImplementation(() => resourceWithIncompleteBasicInfo)
+  },
+  play: async ({ canvas, userEvent }) => {
+    const emailField = canvas.getByLabelText('E-mail')
+    await userEvent.type(emailField, 'john.doe@hmail.com')
+    await userEvent.hover(emailField)
+
+    await canvas.findByText('Changes Saved', {}, { timeout: 5000 })
+
+    expect(canvas.getByTestId('main')).toHaveTextContent('Changes Saved')
     expect(canvas.getByTestId('main')).not.toHaveTextContent('Proceed to Project Details')
   },
 }

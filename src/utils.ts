@@ -1,4 +1,15 @@
+import { useState } from 'react'
+
 export const capitalize = (str: string) => str[0].toUpperCase() + str.slice(1)
+
+export function useDebounce<T extends (...args: never[]) => void>(cb: T, delay = 200) {
+  const [timeoutId, setTimeoutId] = useState<NodeJS.Timeout>()
+
+  return function (...args) {
+    clearTimeout(timeoutId)
+    setTimeoutId(setTimeout(() => cb(...args), delay))
+  } as T
+}
 
 export function formDataToObject(
   data: FormData,

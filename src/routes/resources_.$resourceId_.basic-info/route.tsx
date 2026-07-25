@@ -6,10 +6,10 @@ import type { Route } from './+types/route'
 import ProgressBadge from '../components/ProgressBadge'
 import ResourceStatusBadge from '../components/ResourceStatusBadge'
 import { BackLinkButton } from '../components/styled'
-import { capitalize, fetchFromApi } from '../../utils'
+import { capitalize, fetchFromApi, useDebounce } from '../../utils'
 import { useState } from 'react'
 import { SubmitButton } from './styles'
-import debounce from 'debounce'
+import FormStatusBadge from '../components/FormStatusBadge'
 
 export async function clientAction({ request, params }: Route.ActionArgs) {
   return fetchFromApi(`/resources/${params.resourceId}/basic-info`, {
@@ -40,27 +40,21 @@ export default function ResourcePage() {
   const [email, setEmail] = useState(resource.basicInfo.email)
   const [description, setDescription] = useState(resource.basicInfo.description)
   const [priority, setPriority] = useState(resource.basicInfo.priority)
-  const [formStatus, setFormStatus] = useState(
-    resource.status === 'draft' ? 'Draft Saved' : 'Changes Saved',
-  )
+  const [isSaved, setIsSaved] = useState(true)
+  const [isSaving, setIsSaving] = useState(false)
   const fetcher = useFetcher()
-  const saveDraft = debounce(async (e: AnyInputChangeEvent) => {
-    await fetcher.submit(e.target.form, { method: 'PATCH' })
-    if (fetcher.data?.message) {
-      setFormStatus('Draft not saved. Fix errors above before continuing.')
-    } else if (resource.status === 'draft') {
-      setFormStatus('Draft Saved')
-    } else {
-      setFormStatus('Changes Saved')
-    }
+  const saveDraft = useDebounce(async (e: AnyInputChangeEvent) => {
+    setIsSaving(true)
+    await fetcher.submit(e.target.form, { method: 'PATCH' }).finally(() => {
+      setIsSaving(false)
+    })
+    setIsSaved(true)
   }, 3000)
 
   function handleChange(e: AnyInputChangeEvent) {
+    setIsSaved(false)
     if (resource.status === 'draft') {
-      setFormStatus('Saving draft')
       saveDraft(e)
-    } else {
-      setFormStatus('Changes not saved. Click "Save Changes" to persist your edits.')
     }
   }
 
@@ -83,8 +77,6 @@ export default function ResourcePage() {
     setPriority(e.target.value)
     handleChange(e)
   }
-
-  const isSaved = formStatus.includes('Saved')
 
   return (
     <div>
@@ -151,8 +143,12 @@ export default function ResourcePage() {
             name="priority"
           />
           <br />
-
-          <Badge variant={isSaved ? 'success' : 'warning'}>{formStatus}</Badge>
+          <FormStatusBadge
+            pending={isSaving}
+            isSaved={isSaved}
+            isDraft={resource.status === 'draft'}
+            error={!!fetcher.data?.message}
+          />
           <br />
 
           {resource.status === 'completed' ? (

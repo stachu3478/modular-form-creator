@@ -17,7 +17,6 @@
     "@react-router/fs-routes": "^8.2.0",
     "@react-router/node": "^8.2.0",
     "@react-router/serve": "^8.2.0",
-    "debounce": "^3.0.0",
     "isbot": "^5",
     "react": "19.2.7",
     "react-dom": "19.2.7",
